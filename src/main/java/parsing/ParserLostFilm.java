@@ -84,7 +84,7 @@ public final class ParserLostFilm extends Parser{
         Document doc = getDocument(URL + url_appendix);
         Episode episode = new Episode();
         Elements seriesElement = doc.getElementsByClass("t_row");
-        for (int i = 0; i < seriesElement.size(); i++) {
+        for (int i = seriesElement.size()-1; i >= 0; i--) {
             episode = parsingEpisode(seriesElement.get(i));
             if (episode == null) continue;
             prepareData(episode);
