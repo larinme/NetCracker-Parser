@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="Parser:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="Project-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="Parser:war exploded" />
-    </root>
-  </artifact>
-</component>
