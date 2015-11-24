@@ -6,9 +6,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Максим on 14.11.2015.
@@ -34,23 +37,10 @@ public abstract class Parser {
         Iterator<Element> iterator = elements.iterator();
         return iterator;
     }
-    @SuppressWarnings("unchecked")
-    /**
-     * @param date is a date represented as dd.mm.yyyy hh24:mm
-     * @return Date format
-     */
-    public static Date convert(String date) {
-        String[] strings = date.split("[.| |:|]");
-        int day = Integer.parseInt(strings[0]);
-        int month = Integer.parseInt(strings[1]);
-        int year = Integer.parseInt(strings[2]);
-        int hours = Integer.parseInt(strings[3]);
-        int minutes = Integer.parseInt(strings[4]);
-        return new Date(year, month, day, hours, minutes);
-    }
-    protected void prepareData(Episode episode){
+
+    protected void prepareData(TreeSet<EpisodeRequest> episodeRequests){
         AddEpisodeRequest addEpisodeRequest = new AddEpisodeRequest();
-        addEpisodeRequest.setEpisode(episode);
+        addEpisodeRequest.setEpisodeRequests(episodeRequests);
         JsonRequest.send(addEpisodeRequest);
     }
     /* Method implements  parsing of sites where className contains in tagContent episode number
@@ -74,7 +64,7 @@ public abstract class Parser {
             return Integer.parseInt(episode.getElementsByClass(className).text().split("[- ]")[0]);
         }
     }
-    abstract protected void getEpisodesInfo(String url_appendix);
+    abstract protected TreeSet<EpisodeRequest> getEpisodesInfo(String url_appendix);
     abstract protected Episode parsingEpisode(Element episode);
     abstract public void parsing();
     }

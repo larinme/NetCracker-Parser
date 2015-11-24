@@ -6,11 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.TreeSet;
 
 /**
  * Created by Максим on 14.11.2015.
@@ -33,17 +30,19 @@ public final class ParserLostFilm extends Parser{
 
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
+        TreeSet<EpisodeRequest> hashSet = new TreeSet<EpisodeRequest>();
         if (serialsIterator == null) {
             return;
         }
         while (serialsIterator.hasNext()) {
             try {
                 Element serial = serialsIterator.next();
-                getEpisodesInfo(serial.attr("href"));
+                hashSet.addAll(getEpisodesInfo(serial.attr("href")));
             } catch (NullPointerException e) {
-                continue;
+                e.printStackTrace();
             }
         }
+        prepareData(hashSet);
     }
 
     /*
@@ -60,7 +59,12 @@ public final class ParserLostFilm extends Parser{
                 .not("span[class=micro]")
                 .not("span[style=color:#4b4b4b]")
                 .not("span[style=line-height:11px;display:block]");
-        Date date = convert(dateAndSeasonAnsEpisode.get(0).text());
+        Date date = new Date();
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String[] strings = dateAndSeasonAnsEpisode.get(1).text().toString().split(" |-");
         int season;
         int episode_number;
@@ -77,18 +81,28 @@ public final class ParserLostFilm extends Parser{
     }
     /**
      * URL?????????????????????????????
+     * TOKEN!!!!!!!!!!!!!!!!!!!!!!!!!!
+     *
+     *
      * Method prepared episodes to sending on server
      * @param url_appendix is appendix to serial url
      */
-   protected void getEpisodesInfo(String url_appendix) {
+   protected TreeSet<EpisodeRequest> getEpisodesInfo(String url_appendix) {
         Document doc = getDocument(URL + url_appendix);
         Episode episode = new Episode();
-        Elements seriesElement = doc.getElementsByClass("t_row");
+        EpisodeRequest episodeRequest;
+       TreeSet<EpisodeRequest> hashSet = new TreeSet<EpisodeRequest>();
+       Elements seriesElement = doc.getElementsByClass("t_row");
         for (int i = seriesElement.size()-1; i >= 0; i--) {
             episode = parsingEpisode(seriesElement.get(i));
             if (episode == null) continue;
-            prepareData(episode);
+            episode.setLink(doc.location());
+            episodeRequest = new EpisodeRequest();
+            episodeRequest.setToken(" ");
+            episodeRequest.setEpisode(episode);
+            hashSet.add(episodeRequest);
         }
 
+        return hashSet;
     }
 }

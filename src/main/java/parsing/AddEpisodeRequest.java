@@ -1,27 +1,27 @@
 package parsing;
 
+import java.util.HashSet;
+import java.util.TreeSet;
+
 /**
- * Created by Максим on 18.11.2015.
+ * Created by LarinME on 24.11.2015 23:39.
  */
 public class AddEpisodeRequest {
-    private String token;
 
-    private Episode episode;
+    private TreeSet<EpisodeRequest> episodeRequests;
 
-    public String getToken() {
-        return token;
+    public TreeSet<EpisodeRequest> getEpisodeRequests() {
+        return episodeRequests;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setEpisodeRequests(TreeSet<EpisodeRequest> episodeRequests) {
+        this.episodeRequests = episodeRequests;
     }
 
-    public Episode getEpisode() {
-        return episode;
+    @Override
+    public String toString() {
+        return "AddEpisodeRequest{" +
+                "episodeRequests=" + episodeRequests +
+                '}';
     }
-
-    public void setEpisode(Episode episode) {
-        this.episode = episode;
-    }
-
 }

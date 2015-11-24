@@ -20,7 +20,10 @@ public class JsonRequest {
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
             con.setDoOutput(true);
+            System.out.println("--------------------------------------------------");
+            System.out.println(ans);
             OutputStream os = con.getOutputStream();
+
             os.write(ans.getBytes());
             os.flush();
             os.close();
