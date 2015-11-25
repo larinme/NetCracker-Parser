@@ -79,6 +79,7 @@ public class ParserXML extends AbstractParser{
     }
     private String getLink(String item){
         String link = null;
+        System.out.println(item);
         link = item.substring(item.indexOf("<link>")+6, item.indexOf("</item>") - 2);
         return link;
     }
