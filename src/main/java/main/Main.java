@@ -9,7 +9,7 @@ import parsing.xml.ParserXML;
 public class Main {
     public static void main(String[] args) {
         String[] sites = {"http://lostfilm.tv/rss.xml"};
-        new ParserLostFilm().parsing();
-        //new ParserXML(sites[0]).parsing();
+        //new ParserLostFilm().parsing();
+        new ParserXML(sites[0]).parsing();
     }
 }
