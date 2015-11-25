@@ -63,4 +63,5 @@ public abstract class Parser {
     abstract protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix);
     abstract protected Episode parsingEpisode(Element episode);
     abstract public void parsing();
+    abstract protected String getSerialName(String html);
     }

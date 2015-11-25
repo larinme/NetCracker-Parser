@@ -6,6 +6,8 @@ import org.jsoup.select.Elements;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class ParserLostFilm extends Parser{
 
@@ -32,6 +34,7 @@ public final class ParserLostFilm extends Parser{
         while (serialsIterator.hasNext()) {
             try {
                 Element serial = serialsIterator.next();
+                String name = getSerialName(serial.html());
                 hashSet.addAll(getEpisodesInfo(serial.attr("href")));
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -40,9 +43,16 @@ public final class ParserLostFilm extends Parser{
         prepareData(hashSet);
     }
 
+    @Override
+    protected String getSerialName(String html) {
+        String name = null;
+        name = html.substring(0, html.indexOf('<'));
+        return name;
+    }
+
     /*
-     * @returns all episode
-     */
+         * @returns all episode
+         */
     protected Episode parsingEpisode(Element episode){
         Episode parsedEpisode = new Episode();
         Integer episodeNum = parseEpisodeNum(episode, "t_episode_num", "label");

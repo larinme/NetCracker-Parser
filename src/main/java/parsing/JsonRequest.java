@@ -24,7 +24,6 @@ public class JsonRequest {
             System.out.println("--------------------------------------------------");
             System.out.println(ans);
             OutputStream os = con.getOutputStream();
-
             os.write(ans.getBytes());
             os.flush();
             os.close();
