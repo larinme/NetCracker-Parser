@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 public final class ParserLostFilm extends Parser{
 
-    private String currentSerialTitle;
+
 
 
     public ParserLostFilm(){

@@ -13,7 +13,7 @@ public abstract class Parser {
 
     public static String URL;
     public static String URL_SERIALS;
-
+    protected String currentSerialTitle;
     public static Document getDocument(String URL) {
         try {
             return Jsoup.connect(URL).get();
