@@ -6,16 +6,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-/**
- * Created by Максим on 14.11.2015.
- */
 public abstract class Parser {
 
     public static String URL;
@@ -38,12 +31,15 @@ public abstract class Parser {
         return iterator;
     }
 
-    protected void prepareData(TreeSet<EpisodeRequest> episodeRequests){
-        AddEpisodeRequest addEpisodeRequest = new AddEpisodeRequest();
-        addEpisodeRequest.setEpisodeRequests(episodeRequests);
-        JsonRequest.send(addEpisodeRequest);
+    protected void prepareData(TreeSet<AddEpisodeRequest> addEpisodeRequests){
+        AddEpisodesRequest addEpisodesRequest = new AddEpisodesRequest();
+        addEpisodesRequest.setAddEpisodeRequests(addEpisodeRequests);
+        JsonRequest.send(addEpisodesRequest);
     }
-    /* Method implements  parsing of sites where className contains in tagContent episode number
+
+
+    /**
+    *  Method implements  parsing of sites where className contains in tagContent episode number
     *  The common implementation to LostFilm and Kubik3
     *  @param episode is DOM of the episode.
     *  @param className is attribute which identify position of episode number
@@ -64,7 +60,7 @@ public abstract class Parser {
             return Integer.parseInt(episode.getElementsByClass(className).text().split("[- ]")[0]);
         }
     }
-    abstract protected TreeSet<EpisodeRequest> getEpisodesInfo(String url_appendix);
+    abstract protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix);
     abstract protected Episode parsingEpisode(Element episode);
     abstract public void parsing();
     }

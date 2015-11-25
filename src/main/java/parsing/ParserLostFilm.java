@@ -1,6 +1,4 @@
 package parsing;
-
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -9,9 +7,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-/**
- * Created by Максим on 14.11.2015.
- */
 public final class ParserLostFilm extends Parser{
 
 
@@ -30,7 +25,7 @@ public final class ParserLostFilm extends Parser{
 
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
-        TreeSet<EpisodeRequest> hashSet = new TreeSet<EpisodeRequest>();
+        TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
         if (serialsIterator == null) {
             return;
         }
@@ -87,20 +82,20 @@ public final class ParserLostFilm extends Parser{
      * Method prepared episodes to sending on server
      * @param url_appendix is appendix to serial url
      */
-   protected TreeSet<EpisodeRequest> getEpisodesInfo(String url_appendix) {
+   protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix) {
         Document doc = getDocument(URL + url_appendix);
         Episode episode = new Episode();
-        EpisodeRequest episodeRequest;
-       TreeSet<EpisodeRequest> hashSet = new TreeSet<EpisodeRequest>();
+        AddEpisodeRequest addEpisodeRequest;
+       TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
        Elements seriesElement = doc.getElementsByClass("t_row");
         for (int i = seriesElement.size()-1; i >= 0; i--) {
             episode = parsingEpisode(seriesElement.get(i));
             if (episode == null) continue;
             episode.setLink(doc.location());
-            episodeRequest = new EpisodeRequest();
-            episodeRequest.setToken(" ");
-            episodeRequest.setEpisode(episode);
-            hashSet.add(episodeRequest);
+            addEpisodeRequest = new AddEpisodeRequest();
+            addEpisodeRequest.setToken(" ");
+            addEpisodeRequest.setEpisode(episode);
+            hashSet.add(addEpisodeRequest);
         }
 
         return hashSet;

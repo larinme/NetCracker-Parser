@@ -2,9 +2,7 @@ package parsing;
 
 import java.util.Date;
 
-/**
- * Created by Максим on 18.11.2015.
- */
+
 public class Episode implements Comparable<Episode> {
     private int seasonNumber;
 

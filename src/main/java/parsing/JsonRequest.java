@@ -2,19 +2,20 @@ package parsing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Максим on 18.11.2015.
- */
+
 public class JsonRequest {
-    public static void send(AddEpisodeRequest addEpisodeRequest) {
+
+    public static void send(AddEpisodesRequest addEpisodesRequest) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            String ans = mapper.writeValueAsString(addEpisodeRequest);
-            String URL = "http://localhost:3000/add/episode";
+            String ans = mapper.writeValueAsString(addEpisodesRequest);
+            String URL = "http://localhost:8080/add/episode";
             URL obj = new URL(URL);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
@@ -27,7 +28,13 @@ public class JsonRequest {
             os.write(ans.getBytes());
             os.flush();
             os.close();
+
+            BufferedReader bis = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            while (bis.ready()){
+                System.out.println(bis.readLine());
+            }
         }catch (Exception e){
         }
     }
+
 }
