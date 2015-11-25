@@ -1,13 +1,16 @@
-package parsing;
+package parsing.init;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import parsing.AddEpisodeRequest;
+import parsing.Episode;
+import parsing.Parser;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public final class ParserLostFilm extends Parser{
+public final class ParserLostFilm extends Parser {
 
 
 
@@ -38,7 +41,7 @@ public final class ParserLostFilm extends Parser{
                 currentSerialTitle = getSerialName(serial.html());
                 hashSet.addAll(getEpisodesInfo(serial.attr("href")));
             } catch (NullPointerException e) {
-                e.printStackTrace();
+
             }
         }
         prepareData(hashSet);
@@ -94,23 +97,22 @@ public final class ParserLostFilm extends Parser{
      * @param url_appendix is appendix to serial url
      */
    protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix) {
-        Document doc = getDocument(URL + url_appendix);
-        Episode episode = new Episode();
-        AddEpisodeRequest addEpisodeRequest;
+       Document doc = getDocument(URL + url_appendix);
+       Episode episode = new Episode();
+       AddEpisodeRequest addEpisodeRequest;
        TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
        Elements seriesElement = doc.getElementsByClass("t_row");
-        for (int i = seriesElement.size()-1; i >= 0; i--) {
-            episode = parsingEpisode(seriesElement.get(i));
-            if (episode == null) continue;
-            episode.setLink(doc.location());
-            addEpisodeRequest = new AddEpisodeRequest();
-            if (currentSerialTitle.equals("Алькатрас")){
-                addEpisodeRequest.setToken("573ca9af-71e0-4a22-a97e-2b1998118111");
-            }
-            addEpisodeRequest.setEpisode(episode);
-            hashSet.add(addEpisodeRequest);
-        }
-
+       for (int i = seriesElement.size() - 1; i >= 0; i--) {
+           episode = parsingEpisode(seriesElement.get(i));
+           if (episode == null) continue;
+           episode.setLink(doc.location());
+           addEpisodeRequest = new AddEpisodeRequest();
+           if (currentSerialTitle.equals("Алькатрас")) {
+               addEpisodeRequest.setToken("573ca9af-71e0-4a22-a97e-2b1998118111");
+           }
+           addEpisodeRequest.setEpisode(episode);
+           hashSet.add(addEpisodeRequest);
+       }
         return hashSet;
     }
 }
