@@ -6,10 +6,10 @@ import org.jsoup.select.Elements;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class ParserLostFilm extends Parser{
+
+    private String currentSerialTitle;
 
 
     public ParserLostFilm(){
@@ -25,6 +25,7 @@ public final class ParserLostFilm extends Parser{
      * @returns The method returns nothing. It's do parsing.
      */
 
+
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
         TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
@@ -34,7 +35,7 @@ public final class ParserLostFilm extends Parser{
         while (serialsIterator.hasNext()) {
             try {
                 Element serial = serialsIterator.next();
-                String name = getSerialName(serial.html());
+                currentSerialTitle = getSerialName(serial.html());
                 hashSet.addAll(getEpisodesInfo(serial.attr("href")));
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -103,7 +104,9 @@ public final class ParserLostFilm extends Parser{
             if (episode == null) continue;
             episode.setLink(doc.location());
             addEpisodeRequest = new AddEpisodeRequest();
-            addEpisodeRequest.setToken(" ");
+            if (currentSerialTitle.equals("Алькатрас")){
+                addEpisodeRequest.setToken("573ca9af-71e0-4a22-a97e-2b1998118111");
+            }
             addEpisodeRequest.setEpisode(episode);
             hashSet.add(addEpisodeRequest);
         }
