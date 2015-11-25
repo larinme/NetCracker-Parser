@@ -1,26 +1,17 @@
-package parsing;
+package parsing.init;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import parsing.*;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public abstract class Parser {
+public abstract class Parser extends AbstractParser {
 
-    public static String URL;
-    public static String URL_SERIALS;
-    protected String currentSerialTitle;
-    public static Document getDocument(String URL) {
-        try {
-            return Jsoup.connect(URL).get();
-        } catch (IOException e) {
-            return null;
-        }
-    }
     /**
      * @return All available serials as Iterator<Element>
      */
@@ -29,12 +20,6 @@ public abstract class Parser {
         Elements elements = doc.getElementsByClass("mid").get(0).getElementsByClass("bb_a");
         Iterator<Element> iterator = elements.iterator();
         return iterator;
-    }
-
-    protected void prepareData(TreeSet<AddEpisodeRequest> addEpisodeRequests){
-        AddEpisodesRequest addEpisodesRequest = new AddEpisodesRequest();
-        addEpisodesRequest.setAddEpisodeRequests(addEpisodeRequests);
-        JsonRequest.send(addEpisodesRequest);
     }
 
 

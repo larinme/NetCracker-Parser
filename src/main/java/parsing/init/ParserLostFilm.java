@@ -4,26 +4,19 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import parsing.AddEpisodeRequest;
 import parsing.Episode;
-import parsing.Parser;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
 public final class ParserLostFilm extends Parser {
 
 
-
-
-    public ParserLostFilm(){
+    public ParserLostFilm() {
         URL = "http://www.lostfilm.tv";
         URL_SERIALS = "http://www.lostfilm.tv/serials.php";
     }
-    public static void main(String[] args) {
-        new ParserLostFilm().parsing();
-
-    }
-
     /**
      * @returns The method returns nothing. It's do parsing.
      */
@@ -31,7 +24,7 @@ public final class ParserLostFilm extends Parser {
 
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
-        TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
+        TreeSet<AddEpisodeRequest> treeSet = new TreeSet<AddEpisodeRequest>();
         if (serialsIterator == null) {
             return;
         }
@@ -39,12 +32,15 @@ public final class ParserLostFilm extends Parser {
             try {
                 Element serial = serialsIterator.next();
                 currentSerialTitle = getSerialName(serial.html());
-                hashSet.addAll(getEpisodesInfo(serial.attr("href")));
+                TreeSet<AddEpisodeRequest> tmp = getEpisodesInfo(serial.attr("href"));
+                if (tmp != null) {
+                    treeSet.addAll(tmp);
+                }
             } catch (NullPointerException e) {
 
             }
         }
-        prepareData(hashSet);
+        prepareData(treeSet);
     }
 
     @Override
@@ -98,6 +94,9 @@ public final class ParserLostFilm extends Parser {
      */
    protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix) {
        Document doc = getDocument(URL + url_appendix);
+       if(!doc.toString().contains("Статус: снимается")){
+           return null;
+       }
        Episode episode = new Episode();
        AddEpisodeRequest addEpisodeRequest;
        TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
