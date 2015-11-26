@@ -1,12 +1,12 @@
 package parsing.init;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import parsing.*;
+import parsing.AbstractParser;
+import parsing.AddEpisodeRequest;
+import parsing.Episode;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -45,7 +45,7 @@ public abstract class Parser extends AbstractParser {
             return Integer.parseInt(episode.getElementsByClass(className).text().split("[- ]")[0]);
         }
     }
-    abstract protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix);
+    abstract protected TreeSet<AddEpisodeRequest> getEpisodesInfo(Document page);
     abstract protected Episode parsingEpisode(Element episode);
     abstract public void parsing();
     abstract protected String getSerialName(String html);

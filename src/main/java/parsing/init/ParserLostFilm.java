@@ -4,9 +4,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import parsing.AddEpisodeRequest;
 import parsing.Episode;
+import tokens.TokenManager;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -28,11 +28,37 @@ public final class ParserLostFilm extends Parser {
         if (serialsIterator == null) {
             return;
         }
+
+//        BufferedWriter bufferedWriter = null;
+//        try {
+//            bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\jedaka\\Desktop\\NetCracker-Parser\\src\\main\\resources\\lostFilmTokens.sql"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         while (serialsIterator.hasNext()) {
             try {
                 Element serial = serialsIterator.next();
+
                 currentSerialTitle = getSerialName(serial.html());
-                TreeSet<AddEpisodeRequest> tmp = getEpisodesInfo(serial.attr("href"));
+
+                Document doc = getDocument(URL + serial.attr("href"));
+
+                if(!doc.toString().contains("Статус: снимается")){
+                    continue;
+                }
+
+//                String uid = UUID.randomUUID().toString();
+//                System.out.println("tokens.put(\"" + currentSerialTitle + "\", \"" + uid + "\");");
+//                try {
+//                    bufferedWriter.write("INSERT INTO SERIAL VALUES (SERIAL_SEQ.nextval, '', '" + currentSerialTitle + "');\n");
+//                    bufferedWriter.write("INSERT INTO TOKEN VALUES(TOKEN_SEQ.nextval, '" + uid + "', (SELECT ID FROM SERIAL WHERE TITLE = '" + currentSerialTitle + "'), (SELECT ID FROM STUDIO WHERE NAME = 'LostFilm'));\n");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
+
+                TreeSet<AddEpisodeRequest> tmp = getEpisodesInfo(doc);
                 if (tmp != null) {
                     treeSet.addAll(tmp);
                 }
@@ -40,6 +66,14 @@ public final class ParserLostFilm extends Parser {
 
             }
         }
+
+//        try {
+//            bufferedWriter.flush();
+//            bufferedWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         prepareData(treeSet);
     }
 
@@ -90,26 +124,20 @@ public final class ParserLostFilm extends Parser {
      *
      *
      * Method prepared episodes to sending on server
-     * @param url_appendix is appendix to serial url
+     * @param page is a serial html document
      */
-   protected TreeSet<AddEpisodeRequest> getEpisodesInfo(String url_appendix) {
-       Document doc = getDocument(URL + url_appendix);
-       if(!doc.toString().contains("Статус: снимается")){
-           return null;
-       }
+   protected TreeSet<AddEpisodeRequest> getEpisodesInfo(Document page) {
        Episode episode = new Episode();
        AddEpisodeRequest addEpisodeRequest;
        TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
-       Elements seriesElement = doc.getElementsByClass("t_row");
+       Elements seriesElement = page.getElementsByClass("t_row");
        for (int i = seriesElement.size() - 1; i >= 0; i--) {
            episode = parsingEpisode(seriesElement.get(i));
            if (episode == null) continue;
-           episode.setLink(doc.location());
+           episode.setLink(page.location());
            addEpisodeRequest = new AddEpisodeRequest();
-           if (currentSerialTitle.equals("Алькатрас")) {
-               addEpisodeRequest.setToken("573ca9af-71e0-4a22-a97e-2b1998118111");
-           }
            addEpisodeRequest.setEpisode(episode);
+           addEpisodeRequest.setToken(TokenManager.getToken("LostFilm", currentSerialTitle));
            hashSet.add(addEpisodeRequest);
        }
         return hashSet;
