@@ -19,7 +19,7 @@ abstract public class AbstractParser  {
 
     public static Document getDocument(String URL) {
         try {
-         //   return Jsoup.connect(URL).get());
+          // return Jsoup.connect(URL).get();
             return Jsoup.parse(new URL(URL).openStream(), "Windows-1251", URL);
         } catch (IOException e) {
             return null;
