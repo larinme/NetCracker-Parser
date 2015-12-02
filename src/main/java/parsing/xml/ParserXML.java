@@ -3,10 +3,7 @@ package parsing.xml;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import parsing.AbstractParser;
-import parsing.AddEpisodeRequest;
-import parsing.AddEpisodesRequest;
-import parsing.Episode;
+import parsing.*;
 
 import javax.print.Doc;
 import java.util.Date;
@@ -20,12 +17,17 @@ import java.util.regex.Pattern;
  */
 public class ParserXML extends AbstractParser{
 
-
-    public ParserXML(String url){
-        this.URL = url;
+    private final Pattern pattern;
+    private final String charset;
+    private final String nextTag;
+    public ParserXML(Studio studio){
+        this.URL = studio.URL;
+        pattern = studio.getPattern();
+        this.charset = studio.charset;
+        this.nextTag = studio.nextTag;
     }
     public void parsing(){
-        Document doc = getDocument(URL);
+        Document doc = getDocument(URL, charset);
         Iterator<Element> iterator = doc.getElementsByTag("item").iterator();
         AddEpisodeRequest addEpisodeRequest = new AddEpisodeRequest();
         TreeSet<AddEpisodeRequest> treeSet  = new TreeSet<AddEpisodeRequest>();
@@ -39,7 +41,6 @@ public class ParserXML extends AbstractParser{
             int season = seasonAndEpisodeNum[0];
             int episode = seasonAndEpisodeNum[1];
             Date date = new Date();
-            System.out.println(date.getTime());
             String link = getLink(element.toString());
 
             addEpisodeRequest = new AddEpisodeRequest();
@@ -47,7 +48,6 @@ public class ParserXML extends AbstractParser{
             episodeObj.setLink(link);
             episodeObj.setDate(date);
             episodeObj.setSeasonNumber(season);
-
             addEpisodeRequest.setEpisode(episodeObj);
 
             treeSet.add(addEpisodeRequest);
@@ -69,7 +69,6 @@ public class ParserXML extends AbstractParser{
     private int[] getSeasonAndEpisodeNum(String html){
         int season = 0;
         int episode = 0;
-        Pattern pattern = Pattern.compile("S(\\d){2}E(\\d\\d)");
         Matcher matcher = pattern.matcher(html);
         while (matcher.find()) {
             season = Integer.parseInt(matcher.group(1));
@@ -80,7 +79,7 @@ public class ParserXML extends AbstractParser{
     private String getLink(String item){
         String link = null;
         System.out.println(item);
-        link = item.substring(item.indexOf("<link>")+6, item.indexOf("</item>") - 2);
+        link = item.substring(item.indexOf("<link>")+6, item.indexOf(nextTag) - 2);
         return link;
     }
 }

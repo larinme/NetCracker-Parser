@@ -42,7 +42,7 @@ public final class ParserLostFilm extends Parser {
 
                 currentSerialTitle = getSerialName(serial.html());
 
-                Document doc = getDocument(URL + serial.attr("href"));
+                Document doc = getDocument(URL + serial.attr("href"), "Windows-1251");
 
                 if(!doc.toString().contains("Статус: снимается")){
                     continue;

@@ -17,10 +17,15 @@ abstract public class AbstractParser  {
     public  String URL_SERIALS;
     protected String currentSerialTitle;
 
-    public static Document getDocument(String URL) {
+    public static Document getDocument(String URL, String charset) {
         try {
-          // return Jsoup.connect(URL).get();
-            return Jsoup.parse(new URL(URL).openStream(), "Windows-1251", URL);
+          //
+            if(charset == null)
+            {
+                return Jsoup.connect(URL).get();
+            }else {
+                return Jsoup.parse(new URL(URL).openStream(), charset, URL);
+            }
         } catch (IOException e) {
             return null;
         }

@@ -16,7 +16,7 @@ public abstract class Parser extends AbstractParser {
      * @return All available serials as Iterator<Element>
      */
     protected Iterator<Element> getIterator() {
-        Document doc = getDocument(URL_SERIALS);
+        Document doc = getDocument(URL_SERIALS, null);
         Elements elements = doc.getElementsByClass("mid").get(0).getElementsByClass("bb_a");
         Iterator<Element> iterator = elements.iterator();
         return iterator;
