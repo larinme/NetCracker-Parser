@@ -42,7 +42,7 @@ public class ParserXML extends AbstractParser{
             }
             String titlesAndEpisodeNumbers = element.getElementsByTag("title").get(0).html();
             Episode episodeObj = new Episode();
-            String currentSerialTitle = getSerialTitle(titlesAndEpisodeNumbers);
+            String currentSerialTitle = getSerialTitle(titlesAndEpisodeNumbers).trim();
             String episodeTitle = getEpisodeTitle(titlesAndEpisodeNumbers);
             int[] seasonAndEpisodeNum = getSeasonAndEpisodeNum(titlesAndEpisodeNumbers);
             int season = seasonAndEpisodeNum[0];
@@ -65,6 +65,7 @@ public class ParserXML extends AbstractParser{
     }
     private String getSerialTitle(String html){
         String title = null;
+        html = html.replace("&lt;![CDATA[", "");
         title = html.substring(0, html.indexOf('('));
         return title;
     }
