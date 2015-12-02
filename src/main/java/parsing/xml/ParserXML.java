@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import parsing.*;
+import tokens.TokenManager;
 
 import javax.print.Doc;
 import java.util.Date;
@@ -20,11 +21,13 @@ public class ParserXML extends AbstractParser{
     private final Pattern pattern;
     private final String charset;
     private final String nextTag;
+    private final String name;
     public ParserXML(Studio studio){
         this.URL = studio.URL;
         pattern = studio.getPattern();
         this.charset = studio.charset;
         this.nextTag = studio.nextTag;
+        name = studio.name;
     }
     public void parsing(){
         Document doc = getDocument(URL, charset);
@@ -52,6 +55,7 @@ public class ParserXML extends AbstractParser{
             episodeObj.setLink(link);
             episodeObj.setDate(date);
             episodeObj.setSeasonNumber(season);
+            addEpisodeRequest.setToken(TokenManager.getToken(name, currentSerialTitle));
             addEpisodeRequest.setEpisode(episodeObj);
 
             treeSet.add(addEpisodeRequest);

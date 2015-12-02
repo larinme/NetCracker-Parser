@@ -1,6 +1,7 @@
 package tokens;
 
 import tokens.store.LostFilmTokenStore;
+import tokens.store.NewStudioTokenStore;
 import tokens.store.TokenStore;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class TokenManager {
 
     static {
         stores.put("LostFilm", new LostFilmTokenStore());
+        stores.put("NewStudio", new NewStudioTokenStore());
     }
 
     public static String getToken(String studio, String serial){
