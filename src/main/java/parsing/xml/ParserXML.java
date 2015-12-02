@@ -33,6 +33,10 @@ public class ParserXML extends AbstractParser{
         TreeSet<AddEpisodeRequest> treeSet  = new TreeSet<AddEpisodeRequest>();
         while(iterator.hasNext()){
             Element element = iterator.next();
+            if (element.toString().contains("сезон полностью"))
+            {
+                continue;
+            }
             String titlesAndEpisodeNumbers = element.getElementsByTag("title").get(0).html();
             Episode episodeObj = new Episode();
             String currentSerialTitle = getSerialTitle(titlesAndEpisodeNumbers);
@@ -78,7 +82,6 @@ public class ParserXML extends AbstractParser{
     }
     private String getLink(String item){
         String link = null;
-        System.out.println(item);
         link = item.substring(item.indexOf("<link>")+6, item.indexOf(nextTag) - 2);
         return link;
     }
