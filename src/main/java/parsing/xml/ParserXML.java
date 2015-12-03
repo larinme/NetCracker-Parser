@@ -59,8 +59,9 @@ public class ParserXML extends AbstractParser{
             addEpisodeRequest.setEpisode(episodeObj);
 
             treeSet.add(addEpisodeRequest);
-
+            System.out.println(addEpisodeRequest);
         }
+
         prepareData(treeSet);
     }
     private String getSerialTitle(String html){
