@@ -14,6 +14,7 @@ public class JsonRequest {
     public static void send(AddEpisodesRequest addEpisodesRequest) {
         ObjectMapper mapper = new ObjectMapper();
         try {
+            System.out.println(addEpisodesRequest);
             String ans = mapper.writeValueAsString(addEpisodesRequest);
             String URL = "http://localhost:8080/add/episode";
             URL obj = new URL(URL);

@@ -52,6 +52,10 @@ public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
 
     public int compareTo(AddEpisodeRequest o) {
 
-        return this.episode.compareTo(o.getEpisode());
+
+
+
+        return
+                this.episode.compareTo(o.getEpisode());
     }
 }
