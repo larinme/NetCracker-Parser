@@ -1,16 +1,16 @@
 package parsing;
 
-import java.util.TreeSet;
+import java.util.Set;
 
 public class AddEpisodesRequest {
 
-    private TreeSet<AddEpisodeRequest> addEpisodeRequests;
+    private Set<AddEpisodeRequest> addEpisodeRequests;
 
-    public TreeSet<AddEpisodeRequest> getAddEpisodeRequests() {
+    public Set<AddEpisodeRequest> getAddEpisodeRequests() {
         return addEpisodeRequests;
     }
 
-    public void setAddEpisodeRequests(TreeSet<AddEpisodeRequest> addAddEpisodeRequests) {
+    public void setAddEpisodeRequests(Set<AddEpisodeRequest> addAddEpisodeRequests) {
         this.addEpisodeRequests = addAddEpisodeRequests;
     }
 

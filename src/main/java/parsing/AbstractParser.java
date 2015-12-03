@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -30,7 +31,7 @@ abstract public class AbstractParser  {
             return null;
         }
     }
-    protected void prepareData(TreeSet<AddEpisodeRequest> addEpisodeRequests){
+    protected void prepareData(Set<AddEpisodeRequest> addEpisodeRequests){
         AddEpisodesRequest addEpisodesRequest = new AddEpisodesRequest();
         addEpisodesRequest.setAddEpisodeRequests(addEpisodeRequests);
         JsonRequest.send(addEpisodesRequest);

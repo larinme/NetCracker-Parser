@@ -80,6 +80,7 @@ public class Episode implements Comparable<Episode> {
 
     public int compareTo(Episode o) {
 
+
         return this.date.compareTo(o.date);
     }
 }

@@ -8,6 +8,7 @@ import parsing.AddEpisodeRequest;
 import parsing.Episode;
 
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeSet;
 
 public abstract class Parser extends AbstractParser {
@@ -45,7 +46,7 @@ public abstract class Parser extends AbstractParser {
             return Integer.parseInt(episode.getElementsByClass(className).text().split("[- ]")[0]);
         }
     }
-    abstract protected TreeSet<AddEpisodeRequest> getEpisodesInfo(Document page);
+    abstract protected Set<AddEpisodeRequest> getEpisodesInfo(Document page);
     abstract protected Episode parsingEpisode(Element episode);
     abstract public void parsing();
     abstract protected String getSerialName(String html);

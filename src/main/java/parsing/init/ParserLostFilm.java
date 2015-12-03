@@ -6,9 +6,7 @@ import parsing.AddEpisodeRequest;
 import parsing.Episode;
 import tokens.TokenManager;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.*;
 
 public final class ParserLostFilm extends Parser {
 
@@ -24,7 +22,7 @@ public final class ParserLostFilm extends Parser {
 
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
-        TreeSet<AddEpisodeRequest> treeSet = new TreeSet<AddEpisodeRequest>();
+        Set<AddEpisodeRequest> Set = new HashSet<AddEpisodeRequest>();
         if (serialsIterator == null) {
             return;
         }
@@ -58,9 +56,9 @@ public final class ParserLostFilm extends Parser {
 //                }
 
 
-                TreeSet<AddEpisodeRequest> tmp = getEpisodesInfo(doc);
+                Set<AddEpisodeRequest> tmp = getEpisodesInfo(doc);
                 if (tmp != null) {
-                    treeSet.addAll(tmp);
+                    Set.addAll(tmp);
                 }
             } catch (NullPointerException e) {
 
@@ -74,7 +72,7 @@ public final class ParserLostFilm extends Parser {
 //            e.printStackTrace();
 //        }
 
-        prepareData(treeSet);
+        prepareData(Set);
     }
 
     @Override
@@ -126,10 +124,10 @@ public final class ParserLostFilm extends Parser {
      * Method prepared episodes to sending on server
      * @param page is a serial html document
      */
-   protected TreeSet<AddEpisodeRequest> getEpisodesInfo(Document page) {
+   protected Set<AddEpisodeRequest> getEpisodesInfo(Document page) {
        Episode episode = new Episode();
        AddEpisodeRequest addEpisodeRequest;
-       TreeSet<AddEpisodeRequest> hashSet = new TreeSet<AddEpisodeRequest>();
+       Set<AddEpisodeRequest> hashSet = new HashSet<AddEpisodeRequest>();
        Elements seriesElement = page.getElementsByClass("t_row");
        for (int i = seriesElement.size() - 1; i >= 0; i--) {
            episode = parsingEpisode(seriesElement.get(i));
