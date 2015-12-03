@@ -7,9 +7,7 @@ import parsing.*;
 import tokens.TokenManager;
 
 import javax.print.Doc;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,7 +31,7 @@ public class ParserXML extends AbstractParser{
         Document doc = getDocument(URL, charset);
         Iterator<Element> iterator = doc.getElementsByTag("item").iterator();
         AddEpisodeRequest addEpisodeRequest = new AddEpisodeRequest();
-        TreeSet<AddEpisodeRequest> treeSet  = new TreeSet<AddEpisodeRequest>();
+        Set<AddEpisodeRequest> treeSet  = new HashSet<AddEpisodeRequest>();
         while(iterator.hasNext()){
             Element element = iterator.next();
             if (element.toString().contains("сезон полностью"))
