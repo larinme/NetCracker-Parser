@@ -22,7 +22,7 @@ public class Main {
                 new Studio("http://www.newstudio.tv/rss.php", "Сезон ([\\d]{1,2}), Серия ([\\d]{1,2})", "utf-8", " <description>", "NewStudio")};
         //new ParserLostFilm().parsing();
         for (Studio studio: sites) {
-            new ParserXML(studio).parsing();
+            new ParserXML(studio).parsing();;
         }
 
         /*
