@@ -36,7 +36,10 @@ public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
 
     @Override
     public int hashCode() {
-        int result = token.hashCode();
+        int result = 1;
+        if (token != null){
+            result = token.hashCode();
+        }
         result = 31 * result + episode.hashCode();
         return result;
     }
