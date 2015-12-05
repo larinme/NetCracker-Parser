@@ -1,4 +1,4 @@
-package parsing.entities;
+package com.parser.entities;
 
 import java.util.Date;
 

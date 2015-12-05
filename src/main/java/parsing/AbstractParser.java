@@ -2,9 +2,9 @@ package parsing;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import parsing.response.AddEpisodeRequest;
-import parsing.response.AddEpisodesRequest;
-import parsing.response.JsonRequest;
+import com.parser.response.AddEpisodeRequest;
+import com.parser.response.AddEpisodesRequest;
+import com.parser.response.JsonRequest;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,6 +1,7 @@
-package parsing.response;
+package com.parser.response;
 
-import parsing.entities.Episode;
+
+import com.parser.entities.Episode;
 
 public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
 

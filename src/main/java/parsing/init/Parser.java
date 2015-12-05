@@ -4,8 +4,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import parsing.AbstractParser;
-import parsing.response.AddEpisodeRequest;
-import parsing.entities.Episode;
+import com.parser.response.AddEpisodeRequest;
+import com.parser.entities.Episode;
 
 import java.util.Iterator;
 import java.util.Set;

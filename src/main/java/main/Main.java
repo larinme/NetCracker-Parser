@@ -1,6 +1,6 @@
 package main;
 
-import parsing.entities.Studio;
+import com.parser.entities.Studio;
 import parsing.xml.ParserXML;
 
 /**

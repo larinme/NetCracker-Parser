@@ -3,9 +3,9 @@ package parsing.xml;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import parsing.*;
-import parsing.entities.Episode;
-import parsing.entities.Studio;
-import parsing.response.AddEpisodeRequest;
+import com.parser.entities.Episode;
+import com.parser.entities.Studio;
+import com.parser.response.AddEpisodeRequest;
 import tokens.TokenManager;
 
 import java.util.*;
