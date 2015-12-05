@@ -3,8 +3,6 @@ package main;
 import parsing.entities.Studio;
 import parsing.xml.ParserXML;
 
-import java.lang.*;
-
 /**
  * Created by LarinME on 25.11.2015 21:08.
  */
