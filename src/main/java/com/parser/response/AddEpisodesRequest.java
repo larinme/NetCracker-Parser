@@ -2,22 +2,25 @@ package com.parser.response;
 
 import java.util.Set;
 
+/**
+ * Wrapper of Parsing Request
+ */
 public class AddEpisodesRequest {
 
-    private Set<AddEpisodeRequest> addEpisodeRequests;
+    private Set<EpisodeRequest> episodeRequests;
 
-    public Set<AddEpisodeRequest> getAddEpisodeRequests() {
-        return addEpisodeRequests;
+    public Set<EpisodeRequest> getEpisodeRequests() {
+        return episodeRequests;
     }
 
-    public void setAddEpisodeRequests(Set<AddEpisodeRequest> addAddEpisodeRequests) {
-        this.addEpisodeRequests = addAddEpisodeRequests;
+    public void setEpisodeRequests(Set<EpisodeRequest> addEpisodeRequests) {
+        this.episodeRequests = addEpisodeRequests;
     }
 
     @Override
     public String toString() {
-        return "AddEpisodeRequest{" +
-                "addEpisodeRequests=" + addEpisodeRequests +
+        return "EpisodeRequest{" +
+                "episodeRequests=" + episodeRequests +
                 '}';
     }
 }

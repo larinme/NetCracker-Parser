@@ -11,6 +11,9 @@ import java.util.HashMap;
  */
 public class TokenManager {
 
+    /**
+     * Studios store
+     */
     private static HashMap<String, TokenStore> stores = new HashMap();
 
     static {
@@ -18,10 +21,21 @@ public class TokenManager {
         stores.put("NewStudio", new NewStudioTokenStore());
     }
 
+    /**
+     *
+     * @param studio
+     * @param serial
+     * @return token as String
+     */
     public static String getToken(String studio, String serial){
         return stores.get(studio).getToken(serial);
     }
 
+    /**
+     * Adding new TokenStrore by Studio key
+     * @param studio
+     * @param tokenStore
+     */
     public static void addNewTokenStore(String studio, TokenStore tokenStore){
         stores.put(studio, tokenStore);
     }

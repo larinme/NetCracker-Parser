@@ -2,14 +2,32 @@ package com.parser.entities;
 
 import java.util.Date;
 
+/**
+ * Entity episode turned to sending as JSON
+ */
+public class Episode {
 
-public class Episode implements Comparable<Episode> {
+
+    /**
+     * Parsed season number
+     */
     private int seasonNumber;
 
+    /**
+     * Parsed episode number
+     */
     private int episodeNumber;
 
+    /**
+     * Link to website
+     * @return Link as string
+     */
     private String link;
 
+    /**
+     * Date of parsing time
+     * @return java.lang.Date object
+     */
     private Date date;
 
     public int getEpisodeNumber() {
@@ -77,10 +95,4 @@ public class Episode implements Comparable<Episode> {
         return result;
     }
 
-
-    public int compareTo(Episode o) {
-
-
-        return this.date.compareTo(o.date);
-    }
 }

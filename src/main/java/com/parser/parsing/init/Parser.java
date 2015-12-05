@@ -4,12 +4,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import com.parser.parsing.AbstractParser;
-import com.parser.response.AddEpisodeRequest;
+import com.parser.response.EpisodeRequest;
 import com.parser.entities.Episode;
 
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * Abstract class "Parser" is to overriding methods to initialization parse of website
+ */
 public abstract class Parser extends AbstractParser {
 
     /**
@@ -45,8 +48,28 @@ public abstract class Parser extends AbstractParser {
             return Integer.parseInt(episode.getElementsByClass(className).text().split("[- ]")[0]);
         }
     }
-    abstract protected Set<AddEpisodeRequest> getEpisodesInfo(Document page);
+    /**
+     * Method prepared episodes to sending on server
+     * @param page is a serial html document
+     * @return Set of episodes
+     */
+    abstract protected Set<EpisodeRequest> getEpisodesInfo(Document page);
+    /**
+     * @param episode
+     * @returns Episode as object
+     */
     abstract protected Episode parsingEpisode(Element episode);
+
+    /**
+     * Entry point of parsing.
+     * Method extracts necessary information and send as JSON to server
+     */
     abstract public void parsing();
+
+    /**
+     * Method searches serial name in html code
+     * @param html as String
+     * @return String object of title
+     */
     abstract protected String getSerialName(String html);
     }

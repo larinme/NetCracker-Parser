@@ -1,8 +1,8 @@
 package com.parser.parsing;
 
+import com.parser.response.EpisodeRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import com.parser.response.AddEpisodeRequest;
 import com.parser.response.AddEpisodesRequest;
 import com.parser.response.JsonRequest;
 
@@ -31,10 +31,14 @@ abstract public class AbstractParser  {
             return null;
         }
     }
-    protected void prepareData(Set<AddEpisodeRequest> addEpisodeRequests){
+    protected void prepareData(Set<EpisodeRequest> episodeRequests){
         AddEpisodesRequest addEpisodesRequest = new AddEpisodesRequest();
-        addEpisodesRequest.setAddEpisodeRequests(addEpisodeRequests);
-        JsonRequest.send(addEpisodesRequest);
+        addEpisodesRequest.setEpisodeRequests(episodeRequests);
+        if (JsonRequest.send(addEpisodesRequest)) {
+            System.out.println("Everything is ok!");
+        } else {
+            System.out.println("Something wrong!");
+        }
     }
 
 }

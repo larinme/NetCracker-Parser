@@ -1,11 +1,11 @@
 package com.parser.parsing.xml;
 
+import com.parser.response.EpisodeRequest;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import com.parser.parsing.*;
 import com.parser.entities.Episode;
 import com.parser.entities.Studio;
-import com.parser.response.AddEpisodeRequest;
 import com.parser.tokens.TokenManager;
 
 import java.util.*;
@@ -17,9 +17,15 @@ import java.util.regex.Pattern;
  */
 public class ParserXML extends AbstractParser{
 
+
     private final Pattern pattern;
     private final String charset;
     private final String name;
+
+    /**
+     * Constructor initialize the setting of rss.xml
+     * @param studio
+     */
     public ParserXML(Studio studio){
         this.URL = studio.URL;
         pattern = studio.getPattern();
@@ -29,8 +35,8 @@ public class ParserXML extends AbstractParser{
     public void parsing(){
         Document doc = getDocument(URL, charset);
         Iterator<Element> iterator = doc.getElementsByTag("item").iterator();
-        Set<AddEpisodeRequest> setOfAddEpisodeRequest  = new HashSet<AddEpisodeRequest>();
-        AddEpisodeRequest addEpisodeRequest = new AddEpisodeRequest();
+        Set<EpisodeRequest> setOfEpisodeRequest = new HashSet<EpisodeRequest>();
+        EpisodeRequest episodeRequest = new EpisodeRequest();
         while(iterator.hasNext()){
             Element element = iterator.next();
             if (element.toString().toLowerCase().contains("сезон полностью"))
@@ -47,17 +53,17 @@ public class ParserXML extends AbstractParser{
             Date date = new Date();
             String link = getLink(element.toString());
 
-            addEpisodeRequest = new AddEpisodeRequest();
+            episodeRequest = new EpisodeRequest();
             episodeObj.setEpisodeNumber(episode);
             episodeObj.setLink(link);
             episodeObj.setDate(date);
             episodeObj.setSeasonNumber(season);
-            addEpisodeRequest.setToken(TokenManager.getToken(name, currentSerialTitle));
-            addEpisodeRequest.setEpisode(episodeObj);
+            episodeRequest.setToken(TokenManager.getToken(name, currentSerialTitle));
+            episodeRequest.setEpisode(episodeObj);
 
-            setOfAddEpisodeRequest.add(addEpisodeRequest);
+            setOfEpisodeRequest.add(episodeRequest);
         }
-        prepareData(setOfAddEpisodeRequest);
+        prepareData(setOfEpisodeRequest);
     }
     private String getSerialTitle(String html){
         String title = null;

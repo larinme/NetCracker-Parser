@@ -9,9 +9,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class JsonRequest {
+public final class JsonRequest {
 
-    public static void send(AddEpisodesRequest addEpisodesRequest) {
+    /**
+     * Method sends parsed episodes through the HTTP.
+     * @param addEpisodesRequest
+     */
+    public static boolean send(AddEpisodesRequest addEpisodesRequest) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             System.out.println(addEpisodesRequest);
@@ -33,7 +37,9 @@ public class JsonRequest {
             while (bis.ready()){
                 System.out.println(bis.readLine());
             }
+            return true;
         }catch (Exception e){
+            return false;
         }
     }
 

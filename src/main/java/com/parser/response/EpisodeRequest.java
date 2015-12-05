@@ -3,15 +3,24 @@ package com.parser.response;
 
 import com.parser.entities.Episode;
 
-public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
+/**
+ * Wrapper of parsed episode
+ */
+public class EpisodeRequest {
 
+    /**
+     * Token to identification serial
+     */
     private String token;
 
+    /**
+     * Parsed data
+     */
     private Episode episode;
 
     @Override
     public String toString() {
-        return "AddEpisodeRequest{" +
+        return "EpisodeRequest{" +
                 "token='" + token + '\'' +
                 ", episode=" + episode +
                 '}';
@@ -38,7 +47,7 @@ public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AddEpisodeRequest that = (AddEpisodeRequest) o;
+        EpisodeRequest that = (EpisodeRequest) o;
 
         if (!token.equals(that.token)) return false;
         return episode.equals(that.episode);
@@ -55,13 +64,4 @@ public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
         return result;
     }
 
-
-    public int compareTo(AddEpisodeRequest o) {
-
-
-
-
-        return
-                this.episode.compareTo(o.getEpisode());
-    }
 }

@@ -1,13 +1,17 @@
 package com.parser.parsing.init;
+import com.parser.response.EpisodeRequest;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.parser.response.AddEpisodeRequest;
 import com.parser.entities.Episode;
 import com.parser.tokens.TokenManager;
 
 import java.util.*;
 
+/**
+ * The class is used for allocating information which is already on the site.
+ * You should call paring for one time.
+ */
 public final class ParserLostFilm extends Parser {
 
 
@@ -15,48 +19,21 @@ public final class ParserLostFilm extends Parser {
         URL = "http://www.lostfilm.tv";
         URL_SERIALS = "http://www.lostfilm.tv/serials.php";
     }
-    /**
-     * @returns The method returns nothing. It's do com.parser.parsing.
-     */
-
-
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
-        Set<AddEpisodeRequest> Set = new HashSet<AddEpisodeRequest>();
+        Set<EpisodeRequest> Set = new HashSet<EpisodeRequest>();
         if (serialsIterator == null) {
             return;
         }
-
-//        BufferedWriter bufferedWriter = null;
-//        try {
-//            bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\jedaka\\Desktop\\NetCracker-Parser\\src\\com.parser.main\\resources\\lostFilmTokens.sql"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         while (serialsIterator.hasNext()) {
             try {
                 Element serial = serialsIterator.next();
-
                 currentSerialTitle = getSerialName(serial.html());
-
                 Document doc = getDocument(URL + serial.attr("href"), "Windows-1251");
-
                 if(!doc.toString().contains("Статус: снимается")){
                     continue;
                 }
-
-//                String uid = UUID.randomUUID().toString();
-//                System.out.println("com.parser.tokens.put(\"" + currentSerialTitle + "\", \"" + uid + "\");");
-//                try {
-//                    bufferedWriter.write("INSERT INTO SERIAL VALUES (SERIAL_SEQ.nextval, '', '" + currentSerialTitle + "');\n");
-//                    bufferedWriter.write("INSERT INTO TOKEN VALUES(TOKEN_SEQ.nextval, '" + uid + "', (SELECT ID FROM SERIAL WHERE TITLE = '" + currentSerialTitle + "'), (SELECT ID FROM STUDIO WHERE NAME = 'LostFilm'));\n");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
-
-                Set<AddEpisodeRequest> tmp = getEpisodesInfo(doc);
+                Set<EpisodeRequest> tmp = getEpisodesInfo(doc);
                 if (tmp != null) {
                     Set.addAll(tmp);
                 }
@@ -64,14 +41,6 @@ public final class ParserLostFilm extends Parser {
 
             }
         }
-
-//        try {
-//            bufferedWriter.flush();
-//            bufferedWriter.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         prepareData(Set);
     }
 
@@ -82,9 +51,7 @@ public final class ParserLostFilm extends Parser {
         return name;
     }
 
-    /*
-         * @returns all episode
-         */
+
     protected Episode parsingEpisode(Element episode){
         Episode parsedEpisode = new Episode();
         Integer episodeNum = parseEpisodeNum(episode, "t_episode_num", "label");
@@ -116,27 +83,20 @@ public final class ParserLostFilm extends Parser {
         parsedEpisode.setSeasonNumber(season);
         return parsedEpisode;
     }
-    /**
-     * URL?????????????????????????????
-     * TOKEN!!!!!!!!!!!!!!!!!!!!!!!!!!
-     *
-     *
-     * Method prepared episodes to sending on server
-     * @param page is a serial html document
-     */
-   protected Set<AddEpisodeRequest> getEpisodesInfo(Document page) {
+
+   protected Set<EpisodeRequest> getEpisodesInfo(Document page) {
        Episode episode = new Episode();
-       AddEpisodeRequest addEpisodeRequest;
-       Set<AddEpisodeRequest> hashSet = new HashSet<AddEpisodeRequest>();
+       EpisodeRequest episodeRequest;
+       Set<EpisodeRequest> hashSet = new HashSet<EpisodeRequest>();
        Elements seriesElement = page.getElementsByClass("t_row");
        for (int i = seriesElement.size() - 1; i >= 0; i--) {
            episode = parsingEpisode(seriesElement.get(i));
            if (episode == null) continue;
            episode.setLink(page.location());
-           addEpisodeRequest = new AddEpisodeRequest();
-           addEpisodeRequest.setEpisode(episode);
-           addEpisodeRequest.setToken(TokenManager.getToken("LostFilm", currentSerialTitle));
-           hashSet.add(addEpisodeRequest);
+           episodeRequest = new EpisodeRequest();
+           episodeRequest.setEpisode(episode);
+           episodeRequest.setToken(TokenManager.getToken("LostFilm", currentSerialTitle));
+           hashSet.add(episodeRequest);
        }
         return hashSet;
     }
