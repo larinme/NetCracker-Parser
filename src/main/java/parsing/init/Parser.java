@@ -4,12 +4,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import parsing.AbstractParser;
-import parsing.AddEpisodeRequest;
-import parsing.Episode;
+import parsing.response.AddEpisodeRequest;
+import parsing.entities.Episode;
 
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 
 public abstract class Parser extends AbstractParser {
 

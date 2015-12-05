@@ -1,4 +1,4 @@
-package parsing;
+package parsing.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -2,11 +2,12 @@ package parsing.xml;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import parsing.*;
+import parsing.entities.Episode;
+import parsing.entities.Studio;
+import parsing.response.AddEpisodeRequest;
 import tokens.TokenManager;
 
-import javax.print.Doc;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,23 +19,21 @@ public class ParserXML extends AbstractParser{
 
     private final Pattern pattern;
     private final String charset;
-    private final String nextTag;
     private final String name;
     public ParserXML(Studio studio){
         this.URL = studio.URL;
         pattern = studio.getPattern();
         this.charset = studio.charset;
-        this.nextTag = studio.nextTag;
         name = studio.name;
     }
     public void parsing(){
         Document doc = getDocument(URL, charset);
         Iterator<Element> iterator = doc.getElementsByTag("item").iterator();
+        Set<AddEpisodeRequest> setOfAddEpisodeRequest  = new HashSet<AddEpisodeRequest>();
         AddEpisodeRequest addEpisodeRequest = new AddEpisodeRequest();
-        Set<AddEpisodeRequest> treeSet  = new HashSet<AddEpisodeRequest>();
         while(iterator.hasNext()){
             Element element = iterator.next();
-            if (element.toString().contains("сезон полностью"))
+            if (element.toString().toLowerCase().contains("сезон полностью"))
             {
                 continue;
             }
@@ -53,12 +52,13 @@ public class ParserXML extends AbstractParser{
             episodeObj.setLink(link);
             episodeObj.setDate(date);
             episodeObj.setSeasonNumber(season);
+            addEpisodeRequest.setSerialTitle(currentSerialTitle);
             addEpisodeRequest.setToken(TokenManager.getToken(name, currentSerialTitle));
             addEpisodeRequest.setEpisode(episodeObj);
 
-            treeSet.add(addEpisodeRequest);
+            setOfAddEpisodeRequest.add(addEpisodeRequest);
         }
-        prepareData(treeSet);
+        prepareData(setOfAddEpisodeRequest);
     }
     private String getSerialTitle(String html){
         String title = null;
@@ -84,7 +84,12 @@ public class ParserXML extends AbstractParser{
     }
     private String getLink(String item){
         String link = null;
-        link = item.substring(item.indexOf("<link>")+6, item.indexOf(nextTag) - 2);
+        Pattern pattern = Pattern.compile("<link>(.*)");
+        Matcher matcher = pattern.matcher(item);
+        while (matcher.find()){
+            link = matcher.group(1).replaceAll(" ", "");
+            break;
+        }
         return link;
     }
 }

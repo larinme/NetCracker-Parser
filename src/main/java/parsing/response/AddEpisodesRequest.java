@@ -1,4 +1,4 @@
-package parsing;
+package parsing.response;
 
 import java.util.Set;
 

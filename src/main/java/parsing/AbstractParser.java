@@ -2,13 +2,13 @@ package parsing;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+import parsing.response.AddEpisodeRequest;
+import parsing.response.AddEpisodesRequest;
+import parsing.response.JsonRequest;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Created by LarinME on 25.11.2015 18:13.
