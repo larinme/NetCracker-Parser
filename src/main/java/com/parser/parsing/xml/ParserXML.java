@@ -1,6 +1,6 @@
 package com.parser.parsing.xml;
 
-import com.parser.response.EpisodeRequest;
+import com.parser.response.EpisodeInformation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import com.parser.parsing.*;
@@ -35,8 +35,8 @@ public class ParserXML extends AbstractParser{
     public void parsing(){
         Document doc = getDocument(URL, charset);
         Iterator<Element> iterator = doc.getElementsByTag("item").iterator();
-        Set<EpisodeRequest> setOfEpisodeRequest = new HashSet<EpisodeRequest>();
-        EpisodeRequest episodeRequest = new EpisodeRequest();
+        Set<EpisodeInformation> setOfEpisodeInformation = new HashSet<EpisodeInformation>();
+        EpisodeInformation episodeInformation = new EpisodeInformation();
         while(iterator.hasNext()){
             Element element = iterator.next();
             if (element.toString().toLowerCase().contains("сезон полностью"))
@@ -53,17 +53,17 @@ public class ParserXML extends AbstractParser{
             Date date = new Date();
             String link = getLink(element.toString());
 
-            episodeRequest = new EpisodeRequest();
+            episodeInformation = new EpisodeInformation();
             episodeObj.setEpisodeNumber(episode);
             episodeObj.setLink(link);
             episodeObj.setDate(date);
             episodeObj.setSeasonNumber(season);
-            episodeRequest.setToken(TokenManager.getToken(name, currentSerialTitle));
-            episodeRequest.setEpisode(episodeObj);
+            episodeInformation.setToken(TokenManager.getToken(name, currentSerialTitle));
+            episodeInformation.setEpisode(episodeObj);
 
-            setOfEpisodeRequest.add(episodeRequest);
+            setOfEpisodeInformation.add(episodeInformation);
         }
-        prepareData(setOfEpisodeRequest);
+        prepareData(setOfEpisodeInformation);
     }
     private String getSerialTitle(String html){
         String title = null;

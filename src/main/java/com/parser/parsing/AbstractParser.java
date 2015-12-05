@@ -1,6 +1,6 @@
 package com.parser.parsing;
 
-import com.parser.response.EpisodeRequest;
+import com.parser.response.EpisodeInformation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import com.parser.response.AddEpisodesRequest;
@@ -31,9 +31,9 @@ abstract public class AbstractParser  {
             return null;
         }
     }
-    protected void prepareData(Set<EpisodeRequest> episodeRequests){
+    protected void prepareData(Set<EpisodeInformation> episodeInformations){
         AddEpisodesRequest addEpisodesRequest = new AddEpisodesRequest();
-        addEpisodesRequest.setEpisodeRequests(episodeRequests);
+        addEpisodesRequest.setEpisodeInformations(episodeInformations);
         if (JsonRequest.send(addEpisodesRequest)) {
             System.out.println("Everything is ok!");
         } else {

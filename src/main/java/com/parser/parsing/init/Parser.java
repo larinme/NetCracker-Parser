@@ -1,10 +1,10 @@
 package com.parser.parsing.init;
 
+import com.parser.response.EpisodeInformation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import com.parser.parsing.AbstractParser;
-import com.parser.response.EpisodeRequest;
 import com.parser.entities.Episode;
 
 import java.util.Iterator;
@@ -53,7 +53,7 @@ public abstract class Parser extends AbstractParser {
      * @param page is a serial html document
      * @return Set of episodes
      */
-    abstract protected Set<EpisodeRequest> getEpisodesInfo(Document page);
+    abstract protected Set<EpisodeInformation> getEpisodesInfo(Document page);
     /**
      * @param episode
      * @returns Episode as object

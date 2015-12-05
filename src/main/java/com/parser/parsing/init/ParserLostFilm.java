@@ -1,5 +1,5 @@
 package com.parser.parsing.init;
-import com.parser.response.EpisodeRequest;
+import com.parser.response.EpisodeInformation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -21,7 +21,7 @@ public final class ParserLostFilm extends Parser {
     }
     public void parsing() {
         Iterator<Element> serialsIterator = getIterator();
-        Set<EpisodeRequest> Set = new HashSet<EpisodeRequest>();
+        Set<EpisodeInformation> Set = new HashSet<EpisodeInformation>();
         if (serialsIterator == null) {
             return;
         }
@@ -33,7 +33,7 @@ public final class ParserLostFilm extends Parser {
                 if(!doc.toString().contains("Статус: снимается")){
                     continue;
                 }
-                Set<EpisodeRequest> tmp = getEpisodesInfo(doc);
+                Set<EpisodeInformation> tmp = getEpisodesInfo(doc);
                 if (tmp != null) {
                     Set.addAll(tmp);
                 }
@@ -84,19 +84,19 @@ public final class ParserLostFilm extends Parser {
         return parsedEpisode;
     }
 
-   protected Set<EpisodeRequest> getEpisodesInfo(Document page) {
+   protected Set<EpisodeInformation> getEpisodesInfo(Document page) {
        Episode episode = new Episode();
-       EpisodeRequest episodeRequest;
-       Set<EpisodeRequest> hashSet = new HashSet<EpisodeRequest>();
+       EpisodeInformation episodeInformation;
+       Set<EpisodeInformation> hashSet = new HashSet<EpisodeInformation>();
        Elements seriesElement = page.getElementsByClass("t_row");
        for (int i = seriesElement.size() - 1; i >= 0; i--) {
            episode = parsingEpisode(seriesElement.get(i));
            if (episode == null) continue;
            episode.setLink(page.location());
-           episodeRequest = new EpisodeRequest();
-           episodeRequest.setEpisode(episode);
-           episodeRequest.setToken(TokenManager.getToken("LostFilm", currentSerialTitle));
-           hashSet.add(episodeRequest);
+           episodeInformation = new EpisodeInformation();
+           episodeInformation.setEpisode(episode);
+           episodeInformation.setToken(TokenManager.getToken("LostFilm", currentSerialTitle));
+           hashSet.add(episodeInformation);
        }
         return hashSet;
     }

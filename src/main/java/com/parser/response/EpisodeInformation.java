@@ -6,7 +6,7 @@ import com.parser.entities.Episode;
 /**
  * Wrapper of parsed episode
  */
-public class EpisodeRequest {
+public class EpisodeInformation {
 
     /**
      * Token to identification serial
@@ -20,7 +20,7 @@ public class EpisodeRequest {
 
     @Override
     public String toString() {
-        return "EpisodeRequest{" +
+        return "EpisodeInformation{" +
                 "token='" + token + '\'' +
                 ", episode=" + episode +
                 '}';
@@ -47,7 +47,7 @@ public class EpisodeRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EpisodeRequest that = (EpisodeRequest) o;
+        EpisodeInformation that = (EpisodeInformation) o;
 
         if (!token.equals(that.token)) return false;
         return episode.equals(that.episode);
