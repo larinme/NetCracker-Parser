@@ -1,14 +1,17 @@
 package com.parser.parsing.xml;
 
-import com.parser.response.EpisodeInformation;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import com.parser.parsing.*;
 import com.parser.entities.Episode;
 import com.parser.entities.Studio;
+import com.parser.parsing.AbstractParser;
+import com.parser.response.EpisodeInformation;
 import com.parser.tokens.TokenManager;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

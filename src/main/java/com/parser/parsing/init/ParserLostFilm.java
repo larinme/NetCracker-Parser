@@ -1,12 +1,16 @@
 package com.parser.parsing.init;
+
+import com.parser.entities.Episode;
 import com.parser.response.EpisodeInformation;
+import com.parser.tokens.TokenManager;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.parser.entities.Episode;
-import com.parser.tokens.TokenManager;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * The class is used for allocating information which is already on the site.

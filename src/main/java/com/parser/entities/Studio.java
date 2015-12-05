@@ -1,6 +1,6 @@
 package com.parser.entities;
 
-import java.util.regex.*;
+import java.util.regex.Pattern;
 /**
  * Created by Юрий on 02.12.2015.
  */

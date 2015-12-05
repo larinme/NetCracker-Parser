@@ -1,11 +1,11 @@
 package com.parser.parsing.init;
 
+import com.parser.entities.Episode;
+import com.parser.parsing.AbstractParser;
 import com.parser.response.EpisodeInformation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.parser.parsing.AbstractParser;
-import com.parser.entities.Episode;
 
 import java.util.Iterator;
 import java.util.Set;
