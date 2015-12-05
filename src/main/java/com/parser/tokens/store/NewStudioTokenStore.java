@@ -1,4 +1,4 @@
-package tokens.store;
+package com.parser.tokens.store;
 
 import java.util.HashMap;
 

@@ -1,9 +1,9 @@
-package parsing.init;
+package com.parser.parsing.init;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import parsing.AbstractParser;
+import com.parser.parsing.AbstractParser;
 import com.parser.response.AddEpisodeRequest;
 import com.parser.entities.Episode;
 
@@ -24,7 +24,7 @@ public abstract class Parser extends AbstractParser {
 
 
     /**
-    *  Method implements  parsing of sites where className contains in tagContent episode number
+    *  Method implements  com.parser.parsing of sites where className contains in tagContent episode number
     *  The common implementation to LostFilm and Kubik3
     *  @param episode is DOM of the episode.
     *  @param className is attribute which identify position of episode number

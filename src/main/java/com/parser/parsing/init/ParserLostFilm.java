@@ -1,10 +1,10 @@
-package parsing.init;
+package com.parser.parsing.init;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import com.parser.response.AddEpisodeRequest;
 import com.parser.entities.Episode;
-import tokens.TokenManager;
+import com.parser.tokens.TokenManager;
 
 import java.util.*;
 
@@ -16,7 +16,7 @@ public final class ParserLostFilm extends Parser {
         URL_SERIALS = "http://www.lostfilm.tv/serials.php";
     }
     /**
-     * @returns The method returns nothing. It's do parsing.
+     * @returns The method returns nothing. It's do com.parser.parsing.
      */
 
 
@@ -29,7 +29,7 @@ public final class ParserLostFilm extends Parser {
 
 //        BufferedWriter bufferedWriter = null;
 //        try {
-//            bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\jedaka\\Desktop\\NetCracker-Parser\\src\\main\\resources\\lostFilmTokens.sql"));
+//            bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\jedaka\\Desktop\\NetCracker-Parser\\src\\com.parser.main\\resources\\lostFilmTokens.sql"));
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -47,7 +47,7 @@ public final class ParserLostFilm extends Parser {
                 }
 
 //                String uid = UUID.randomUUID().toString();
-//                System.out.println("tokens.put(\"" + currentSerialTitle + "\", \"" + uid + "\");");
+//                System.out.println("com.parser.tokens.put(\"" + currentSerialTitle + "\", \"" + uid + "\");");
 //                try {
 //                    bufferedWriter.write("INSERT INTO SERIAL VALUES (SERIAL_SEQ.nextval, '', '" + currentSerialTitle + "');\n");
 //                    bufferedWriter.write("INSERT INTO TOKEN VALUES(TOKEN_SEQ.nextval, '" + uid + "', (SELECT ID FROM SERIAL WHERE TITLE = '" + currentSerialTitle + "'), (SELECT ID FROM STUDIO WHERE NAME = 'LostFilm'));\n");

@@ -1,12 +1,12 @@
-package parsing.xml;
+package com.parser.parsing.xml;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import parsing.*;
+import com.parser.parsing.*;
 import com.parser.entities.Episode;
 import com.parser.entities.Studio;
 import com.parser.response.AddEpisodeRequest;
-import tokens.TokenManager;
+import com.parser.tokens.TokenManager;
 
 import java.util.*;
 import java.util.regex.Matcher;

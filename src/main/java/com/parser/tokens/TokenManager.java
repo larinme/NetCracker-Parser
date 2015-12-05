@@ -1,8 +1,8 @@
-package tokens;
+package com.parser.tokens;
 
-import tokens.store.LostFilmTokenStore;
-import tokens.store.NewStudioTokenStore;
-import tokens.store.TokenStore;
+import com.parser.tokens.store.LostFilmTokenStore;
+import com.parser.tokens.store.NewStudioTokenStore;
+import com.parser.tokens.store.TokenStore;
 
 import java.util.HashMap;
 

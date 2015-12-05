@@ -1,7 +1,7 @@
-package main;
+package com.parser.main;
 
 import com.parser.entities.Studio;
-import parsing.xml.ParserXML;
+import com.parser.parsing.xml.ParserXML;
 
 /**
  * Created by LarinME on 25.11.2015 21:08.

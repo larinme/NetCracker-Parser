@@ -1,4 +1,4 @@
-package tokens.store;
+package com.parser.tokens.store;
 
 /**
  * Created by jedaka on 26.11.2015.
