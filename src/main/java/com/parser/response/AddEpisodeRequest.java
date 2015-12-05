@@ -9,22 +9,11 @@ public class AddEpisodeRequest implements Comparable<AddEpisodeRequest> {
 
     private Episode episode;
 
-    private String serialTitle;
-
-    public String getSerialTitle() {
-        return serialTitle;
-    }
-
-    public void setSerialTitle(String serialTitle) {
-        this.serialTitle = serialTitle;
-    }
-
     @Override
     public String toString() {
         return "AddEpisodeRequest{" +
                 "token='" + token + '\'' +
                 ", episode=" + episode +
-                ", serialTitle='" + serialTitle + '\'' +
                 '}';
     }
 

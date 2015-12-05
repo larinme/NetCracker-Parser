@@ -52,7 +52,6 @@ public class ParserXML extends AbstractParser{
             episodeObj.setLink(link);
             episodeObj.setDate(date);
             episodeObj.setSeasonNumber(season);
-            addEpisodeRequest.setSerialTitle(currentSerialTitle);
             addEpisodeRequest.setToken(TokenManager.getToken(name, currentSerialTitle));
             addEpisodeRequest.setEpisode(episodeObj);
 
